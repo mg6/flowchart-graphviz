@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools >= 75.3.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "flowchart-graphviz"
+version = "0.1.0"
+description = "Convert flowcharts into Graphviz graphs"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "pydot>=4.0.1",
+]
+
+[project.scripts]
+flowchart = "flowchart.cli:main"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.4.1",
+    "ruff>=0.12.2",
+]
