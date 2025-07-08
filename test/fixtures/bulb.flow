@@ -1,0 +1,25 @@
+// https://commons.wikimedia.org/wiki/File:LampFlowchart.svg
+
+Lamp doesn't work
+  Lamp plugged in .diamond
+
+
+-- 123123
+
+    No: Plug in lamp
+    Yes: Bulb burned out? .diamond
+      -- 123
+      Yes: Replace bulb
+      // do NOT mind me 123
+      No: Repair lamp
+
+---
+RENDER NOT
+
+Lamp doesn't work
+  Lamp plugged in .diamond
+    No: Plug in lamp
+    Yes: Bulb burned out? .diamond
+      Yes: Replace bulb
+      No: Repair lamp
+  Another NOT
