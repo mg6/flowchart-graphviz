@@ -2,7 +2,7 @@ from flowchart.parser import parse_flowchart
 
 
 def test_simple():
-    with open("test/fixtures/simple.flow") as finput:
+    with open("tests/fixtures/simple.flow") as finput:
         lines = iter(finput.readlines())
 
     actual = list(parse_flowchart(lines))

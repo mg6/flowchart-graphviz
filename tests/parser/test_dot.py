@@ -2,7 +2,7 @@ from flowchart.graph import construct_graph
 
 
 def test_skip_comment():
-    with open("test/fixtures/bulb.flow") as finput:
+    with open("tests/fixtures/bulb.flow") as finput:
         lines = finput.readlines()
 
     actual = construct_graph(lines).to_string()
