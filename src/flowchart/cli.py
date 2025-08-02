@@ -3,14 +3,20 @@ import sys
 from flowchart.graph import construct_graph
 
 
-def main(prog="dot"):
-    path = sys.argv[1]
-    with open(path) as finput:
-        graph = construct_graph(finput.readlines())
-        print(graph.to_string())
+def main():
+    for path in sys.argv[1:]:
+        process(path)
 
-        graph.write_png(f"{path}.png", prog=prog)
-        graph.write_svg(f"{path}.svg", prog=prog)
+
+def process(path: str):
+    with open(path) as finput:
+        input = finput.readlines()
+
+    graph = construct_graph(input)
+    print(graph.to_string())
+
+    graph.write_png(f"{path}.png")
+    graph.write_svg(f"{path}.svg")
 
 
 if __name__ == "__main__":
