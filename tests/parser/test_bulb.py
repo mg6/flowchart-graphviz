@@ -3,7 +3,6 @@ import pytest
 from flowchart.parser import parse_flowchart
 
 
-@pytest.mark.skip
 def test_bulb():
     with open("tests/fixtures/bulb.flow") as finput:
         lines = iter(finput.readlines())
@@ -13,13 +12,13 @@ def test_bulb():
         #
         {"node": "Lamp doesn't work"},
         ##
-        {"node": "Lamp plugged in", "shape": "diamond"},
+        {"node": "Lamp plugged in", "class": ["diamond"]},
         {"to": "Lamp plugged in", "from": "Lamp doesn't work"},
         ###
         {"node": "Plug in lamp"},
         {"to": "Plug in lamp", "from": "Lamp plugged in", "label": "No"},
         ###
-        {"node": "Bulb burned out?", "shape": "diamond"},
+        {"node": "Bulb burned out?", "class": ["diamond"]},
         {"to": "Bulb burned out?", "from": "Lamp plugged in", "label": "Yes"},
         ####
         {"node": "Replace bulb"},

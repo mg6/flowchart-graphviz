@@ -1,15 +1,17 @@
 import re
 
-from collections import deque
+from collections import deque, defaultdict
 from typing import Iterable
 
 
 def parse_flowchart(lines: Iterable[str]) -> Iterable[dict[str, str | list[str]]]:
     """Produce nodes and edges by reading flowchart lines."""
+    lines = iter(lines)
 
     _line = None
     _indent = 0
     leaves = deque()
+    refs = defaultdict(list[str])
 
     while True:
         try:
@@ -18,7 +20,7 @@ def parse_flowchart(lines: Iterable[str]) -> Iterable[dict[str, str | list[str]]
             return
 
         indent = count_leading_spaces(line)
-        line = sanitize(line)
+        line = line.strip()
 
         match line:
             case "":
@@ -37,15 +39,18 @@ def parse_flowchart(lines: Iterable[str]) -> Iterable[dict[str, str | list[str]]
         if ref := extract_reference(line):
             line = ref
             # skip emitting node
+        elif klass := extract_class(line):
+            line = sanitize(line)
+            for e in klass:
+                refs[e].append(sanitize(line))
+            yield {"node": line, "class": klass}
         else:
             yield {"node": line}
 
         if indent == _indent:
             pass
-
         elif indent > _indent:
             leaves.appendleft(_line)
-
         elif indent < _indent:
             for _ in range((_indent - indent) // 2):
                 leaves.popleft()
@@ -78,3 +83,8 @@ def extract_label(line: str) -> str | None:
 def extract_reference(line: str) -> str | None:
     if m := re.match(r"\(([^)]+)\)", line):
         return m[1]
+
+
+def extract_class(line: str) -> list[str] | None:
+    if m := re.findall(r"[.](\w+)", line):
+        return m
