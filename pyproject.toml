@@ -2,11 +2,14 @@
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
+[tool.hatch.envs.default]
+installer = "uv"
+
 [project]
 name = "flowchart-graphviz"
 description = "Convert flowcharts into Graphviz graphs"
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.10"
 dependencies = [
     "pydot>=4.0.1",
 ]
@@ -26,3 +29,9 @@ packages = ["src/flowchart"]
 
 [tool.hatch.version]
 path = "src/flowchart/__init__.py"
+
+[tool.hatch.envs.hatch-test]
+extra-args = ["-v"]
+
+[[tool.hatch.envs.hatch-test.matrix]]
+python = ["3.13", "3.12", "3.11", "3.10"]

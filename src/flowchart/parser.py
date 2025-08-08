@@ -1,10 +1,10 @@
 import re
 
 from collections import deque
-from typing import Generator, Iterable, Optional
+from typing import Iterable
 
 
-def parse_flowchart(lines: Iterable[str]) -> Generator[dict[str, str]]:
+def parse_flowchart(lines: Iterable[str]) -> Iterable[dict[str, str | list[str]]]:
     """Produce nodes and edges by reading flowchart lines."""
 
     _line = None
@@ -70,11 +70,11 @@ def sanitize(s: str) -> str:
     return s.strip()
 
 
-def extract_label(line: str) -> Optional[str]:
+def extract_label(line: str) -> str | None:
     if m := re.match(r"([^:]+):", line):
         return m[1]
 
 
-def extract_reference(line: str) -> Optional[str]:
+def extract_reference(line: str) -> str | None:
     if m := re.match(r"\(([^)]+)\)", line):
         return m[1]
